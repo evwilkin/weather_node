@@ -17,10 +17,11 @@ function printError(error) {
 }
 
 const getWeather = (q) => {
+  
   try {
     const request = http.get('http://api.apixu.com/v1/forecast.json?key='+apiKey+'&q='+q, (res) => {
+      
       if (res.statusCode === 200) {
-
         let weatherString = '';
         
         // Convert response to string & combine all responses
@@ -49,15 +50,18 @@ const getWeather = (q) => {
             printError(error);
           }
         });
+
       } else {
         const statusCodeError = new Error("There was a problem getting the weather data (" + http.STATUS_CODES[res.statusCode] + ")");
         printError(statusCodeError);
       }
 
     });
+    
     request.on('error', (err) => {
       printError(error);
     });
+    
   } catch (err) {
     printError(error);
   }
